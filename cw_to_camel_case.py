@@ -13,50 +13,27 @@ Examples
 
 def to_camel_case(text: str):
     import re
-    text_list = re.split('[-_]', text)
-    return text_list
+    # Делим входящую строку "text" по соответствующим симолам из класса, указанного в кавычках []
+    words_list = re.split('[-_ .]', text)
 
-    # if '-' in text:
-    #     text_list = text.split('-')
-    #     new_text_list = []
-    #
-    #     if text_list[0].islower():
-    #         new_text_list = [text_list[0]]
-    #         for elem in text_list[1:]:
-    #             if elem.islower():
-    #                 el = elem.capitalize()
-    #                 new_text_list.append(el)
-    #
-    #     else:
-    #         for elem in text_list:
-    #             if elem.islower():
-    #                 el = elem.capitalize()
-    #                 new_text_list.append(el)
-    #             else:
-    #                 new_text_list.append(elem)
-    #
-    #     return "".join(new_text_list)
-    #
-    # else:
-    #     text_list = text.split('_')
-    #     new_text_list = []
-    #
-    #     if text_list[0].islower():
-    #         new_text_list = [text_list[0]]
-    #         for elem in text_list[1:]:
-    #             if elem.islower():
-    #                 el = elem.capitalize()
-    #                 new_text_list.append(el)
-    #
-    #     else:
-    #         for elem in text_list:
-    #             if elem.islower():
-    #                 el = elem.capitalize()
-    #                 new_text_list.append(el)
-    #             else:
-    #                 new_text_list.append(elem)
-    #
-    #     return "".join(new_text_list)
+    # Если строка не пустая, выполняем алгоритм
+    if text.strip():
+        new_words_list = []
+        for word in words_list:
+            title_word = word[0].upper() + word[1:].lower()
+            new_words_list.append(title_word)
+            if new_words_list[0][0] != words_list[0][0]:
+                first_elem = new_words_list[0][0].lower() + new_words_list[0][1:]
+                new_words_list[0] = first_elem
+        return "".join(new_words_list)
+
+    # В случае передачи пустой строки или строки с пробелами возвращаем пустую строку
+    else:
+        return "".join(words_list)
 
 
-print(to_camel_case('the_stealth-Warrior'))
+print(to_camel_case('The-Pippi_Is_kawaii'))
+print(to_camel_case('A_pippi-was-Pippi'))
+print(to_camel_case('A-Lenn_is.ill'))
+print(to_camel_case('The-Lenn_is.ill'))
+print(to_camel_case('A-B_C-D G.k'))
